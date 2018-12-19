@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
+import { SlackService } from './slack.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  template: '<button (click)="throwError()">Error</button>'
 })
 export class AppComponent {
-  title = 'slack-error-log';
 
-  throwError(){
-    throw new Error('test');
+  constructor(private slackService: SlackService) { }
+
+  throwError() {
+    this.slackService.postErrorOnSlack(new Error('Infinity Error'));
   }
 }
